@@ -1,0 +1,13 @@
+###
+#@no-redirect
+#@no-cookie-jar
+GET http://localhost:8080/protected
+Authorization: Basic user userpwd
+Accept: application/json
+
+###
+#@no-redirect
+#@no-cookie-jar
+GET http://localhost:8080/anyuser
+Authorization: Basic user userpwd
+Accept: application/json
