@@ -1,34 +1,24 @@
 package com.github.antoniomacri;
 
 import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-
-@ApplicationScoped
+@RolesAllowed("protected-role")
 @Path("/")
 public class SampleResource {
-    @Inject
-    SampleControl sampleControl;
 
 
-    @GET
+    @POST
     @Path("protected")
-    @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("protected-role")
-    public CompletionStage<String> getProtected() {
-        return sampleControl.getProtected();
-    }
-
-    @GET
-    @Path("anyuser")
-    @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<String> getForAnyUser() {
-        return sampleControl.getForAnyUser();
+    @Consumes(MediaType.APPLICATION_JSON)
+    public CompletionStage<Response> getProtected(@Valid final Content data) {
+        return CompletableFuture.completedFuture(Response.ok().build());
     }
 }
